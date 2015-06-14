@@ -1,0 +1,5 @@
+{"providers":[
+    {"name":"google",  "id":"123456789101-abcdefghifklmnopqrstuvwxyz123456.apps.provider.com","secret":"googlesecret", "securitykey":"RandomTextToSecureAgainstCSRF"},
+    {"name":"facebook","id":"123456789101-abcdefghifklmnopqrstuvwxyz123456.apps.provider.com","secret":"facebooksecret", "securitykey":"RandomTextToSecureAgainstCSRF"},
+    {"name":"github","id":"123456789101-abcdefghifklmnopqrstuvwxyz123456.apps.provider.com","secret":"githubsecret", "securitykey":"RandomTextToSecureAgainstCSRF"}
+    ]}

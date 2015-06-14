@@ -13,8 +13,8 @@ import (
 // You must register the app at https://github.com/settings/applications
 func GithubOauth2Conf(provider *Provider) (*oauth2.Config){
   return &oauth2.Config{
-                        ClientID:     provider.Conf.ClientID,
-                        ClientSecret: provider.Conf.ClientSecret,
+                        ClientID:     provider.ClientID,
+                        ClientSecret: provider.ClientSecret,
                         // select level of access you want https://developer.github.com/v3/oauth/#scopes
                         Scopes:       []string{"user:email", "repo"},
                         Endpoint:     githuboauth.Endpoint,
@@ -28,7 +28,7 @@ func (c *OauthConf) handleGitHubLogin(w http.ResponseWriter, r *http.Request) {
       log.Fatal(err)
     }
     oauthConf := GithubOauth2Conf(provider)
-    url := oauthConf.AuthCodeURL(provider.Conf.SecurityKey, oauth2.AccessTypeOnline)
+    url := oauthConf.AuthCodeURL(provider.SecurityKey, oauth2.AccessTypeOnline)
     http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 }
 
@@ -40,8 +40,8 @@ func (c *OauthConf) handleGitHubCallback(w http.ResponseWriter, r *http.Request)
     }
     oauthConf := GithubOauth2Conf(provider)
     state := r.FormValue("state")
-    if state != provider.Conf.SecurityKey {
-        fmt.Printf("Invalid oauth state, expected '%s', got '%s'\n", provider.Conf.SecurityKey, state)
+    if state != provider.SecurityKey {
+        fmt.Printf("Invalid oauth state, expected '%s', got '%s'\n", provider.SecurityKey, state)
         http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
         return
     }
