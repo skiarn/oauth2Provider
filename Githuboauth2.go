@@ -22,7 +22,7 @@ func GithubOauth2Conf(provider *Provider) (*oauth2.Config){
 }
 
 // /login
-func (c *OauthConf) handleGitHubLogin(w http.ResponseWriter, r *http.Request) {
+func (c *OauthConf) HandleGitHubLogin(w http.ResponseWriter, r *http.Request) {
     provider, err := c.GetProvider("github")
     if err != nil {
       log.Fatal(err)
@@ -33,7 +33,7 @@ func (c *OauthConf) handleGitHubLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 // /auth/github/callback Called by github after authorization is granted
-func (c *OauthConf) handleGitHubCallback(w http.ResponseWriter, r *http.Request) {
+func (c *OauthConf) HandleGitHubCallback(w http.ResponseWriter, r *http.Request) {
     provider, err := c.GetProvider("github")
     if err != nil {
       log.Fatal(err)

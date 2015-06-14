@@ -6,8 +6,9 @@ example see, src/github.com/skiarn/auth2Provider/oauthKeys.json
 package main
 import(
   "net/http"
+  "log"
+  oauth "github.com/skiarn/oauth2Provider"
   "fmt"
-  "github.com/skiarn/oauth2Provider"
 )
 
 const htmlIndex = `<html><body>
@@ -21,15 +22,16 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    oauthConf, err := ReadOauthConfFile("./oauthKeys.json")
+    var oauthConf *oauth.OauthConf
+    oauthConf, err := oauth.ReadOauthConfFile("./oauthKeys.json")
     if err != nil {
-      fmt.Printf(err)
-      os.Exit(1)
+      log.Fatal(err)
     }
     http.HandleFunc("/", handleMain)
-    http.HandleFunc("/auth/github", oauthConf.handleGitHubLogin)
-    http.HandleFunc("/auth/github/callback", oauthConf.handleGitHubCallback)
+    http.HandleFunc("/auth/github", oauthConf.HandleGitHubLogin)
+    http.HandleFunc("/auth/github/callback", oauthConf.HandleGitHubCallback)
     fmt.Print("Started running on http://127.0.0.1:7000\n")
     fmt.Println(http.ListenAndServe(":7000", nil))
 }
+
 ```
