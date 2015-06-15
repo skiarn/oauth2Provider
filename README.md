@@ -11,10 +11,8 @@ import(
   "fmt"
 )
 
-const htmlIndex = `<html><body>
-Logged in with <a href="/login">GitHub</a>
-</body></html>
-`
+const htmlIndex = `<html><body>Logged in with <a href="/auth/github">GitHub</a></body></html>`
+
 func handleMain(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "text/html; charset=utf-8")
     w.WriteHeader(http.StatusOK)
@@ -30,8 +28,8 @@ func main() {
     http.HandleFunc("/", handleMain)
     http.HandleFunc("/auth/github", oauthConf.HandleGitHubLogin)
     http.HandleFunc("/auth/github/callback", oauthConf.HandleGitHubCallback)
-    fmt.Print("Started running on http://127.0.0.1:7000\n")
-    fmt.Println(http.ListenAndServe(":7000", nil))
+    fmt.Print("Started running on http://127.0.0.1:8080\n")
+    fmt.Println(http.ListenAndServe(":8080", nil))
 }
 
 ```
